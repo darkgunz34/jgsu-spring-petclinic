@@ -27,6 +27,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 /**
  * @author Michael Isvy Simple test to make sure that Bean Validation is working (useful
@@ -45,7 +46,7 @@ class ValidatorTests {
 
 		LocaleContextHolder.setLocale(Locale.ENGLISH);
 		Person person = new Person();
-		person.setFirstName("nothing");
+		person.setFirstName("");
 		person.setLastName("smith");
 
 		Validator validator = createValidator();
@@ -55,6 +56,11 @@ class ValidatorTests {
 		ConstraintViolation<Person> violation = constraintViolations.iterator().next();
 		assertThat(violation.getPropertyPath().toString()).isEqualTo("firstName");
 		assertThat(violation.getMessage()).isEqualTo("must not be empty");
+	}
+
+	@Test
+	void fail() {
+		assertThat(true).isEqualTo(false);
 	}
 
 }
